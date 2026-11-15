@@ -1,1 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi Hato</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2D6A44">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF1EA;--card:#fff;--ink:#22261F;--mute:#5B6455;--line:#D5DACB;--pasto:#2D6A44;--on:#fff;--warn:#9A4A00;--warnbg:#FBE9D0;--tag:#F2C94C;--tagink:#2A2208;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161A15;--card:#20261F;--ink:#ECEFE6;--mute:#A3AC9A;--line:#343C31;--pasto:#7CC796;--on:#10200F;--warn:#F0B26B;--warnbg:#3A2A14;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161A15;--card:#20261F;--ink:#ECEFE6;--mute:#A3AC9A;--line:#343C31;--pasto:#7CC796;--on:#10200F;--warn:#F0B26B;--warnbg:#3A2A14;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 "Nunito Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Bitter,Georgia,serif;margin:0}
+h1{font-size:26px;font-weight:800}h2{font-size:20px}h3{font-size:17px;margin-bottom:10px}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 110px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.pill{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;font:700 14px "Nunito Sans",sans-serif;min-height:40px;cursor:pointer}
+.pill.off{background:var(--warnbg);color:var(--warn);border-color:transparent}
+.banner{background:var(--warnbg);color:var(--warn);border-radius:10px;padding:10px 12px;margin:0 0 12px;font-weight:600;font-size:15px}
+.in{width:100%;min-height:46px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);padding:8px 12px;font:inherit}
+.btn{min-height:46px;border:0;border-radius:10px;background:var(--pasto);color:var(--on);font:700 16px "Nunito Sans",sans-serif;padding:0 16px;cursor:pointer}
+.btn.sm{white-space:nowrap}
+.ghost{min-height:46px;border:1px solid var(--line);border-radius:10px;background:none;color:var(--ink);font:700 15px "Nunito Sans",sans-serif;padding:0 16px;cursor:pointer}
+.bar{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:12px}
+.row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;color:var(--ink);font:inherit;min-height:62px}
+button.row{cursor:pointer}
+.nm{flex:1;display:grid;min-width:0}.nm small,.mute{color:var(--mute)}
+.kg{font-weight:700;white-space:nowrap}
+.ar{background:var(--tag);color:var(--tagink);font:800 17px Bitter,Georgia,serif;padding:6px 12px 6px 22px;border-radius:8px 14px 14px 8px;position:relative;min-width:68px;text-align:center}
+.ar::before{content:"";position:absolute;left:7px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.ar.big{font-size:30px;padding:10px 18px 10px 34px}.ar.big::before{left:11px;width:10px;height:10px;margin-top:-5px}
+.late{color:var(--warn);font-weight:700;white-space:nowrap}
+.ficha{display:flex;align-items:center;gap:14px;margin:6px 0 14px}.ficha p{margin:2px 0 0}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.stats b{display:block;font:800 28px Bitter,Georgia,serif}.stats small{color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;display:grid;gap:10px}
+.card h3{margin:0}
+.inl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:grid;gap:4px;font-size:14px;color:var(--mute);font-weight:600}
+.back{background:none;border:0;color:var(--pasto);font:700 15px "Nunito Sans",sans-serif;min-height:40px;padding:0;cursor:pointer}
+.empty{color:var(--mute);padding:16px 4px}
+.sec{margin:18px 0 8px;font-size:18px}
+.bar2{display:block;height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:6px}.bar2 i{display:block;height:100%;background:var(--pasto)}
+.hist{list-style:none;margin:0;padding:0;display:grid;gap:8px}.hist li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.big2{font:800 30px Bitter,Georgia,serif}
+.note{color:var(--mute);font-size:14px;margin:0}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;z-index:20}
+.sheet{background:var(--card);width:100%;max-width:560px;margin:0 auto;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:10px;max-height:92%;overflow:auto}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:10}
+nav button{flex:1;min-height:58px;border:0;border-top:3px solid transparent;background:none;color:var(--mute);font:700 14px "Nunito Sans",sans-serif;cursor:pointer}
+nav button.on{color:var(--pasto);border-top-color:var(--pasto)}
+#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:90%;text-align:center;z-index:30}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+:focus-visible{outline:3px solid var(--pasto);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<nav>
+  <button data-t="animales" onclick="go('animales')">Animales</button>
+  <button data-t="salud" onclick="go('salud')">Salud</button>
+  <button data-t="pesos" onclick="go('pesos')">Producción</button>
+  <button data-t="sync" onclick="go('sync')">Sincronía</button>
+</nav>
+<div id="toast" role="status"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const KEY='mihato:v5',DAY=864e5,ESP=['Bovino','Caballo','Borrego','Chivo','Cerdo','Ave'],VAC=['Triple bovina','Derriengue','Brucelosis','Ivermectina','Desparasitante','Vitaminas'];
+const $=id=>document.getElementById(id);
+const iso=t=>new Date(t).toISOString().slice(0,10);
+const today=()=>iso(Date.now());
+const add=(f,n)=>iso(new Date(f+'T12:00:00').getTime()+n*DAY);
+const dd=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/DAY);
+const fmt=f=>new Date(f+'T12:00:00').toLocaleDateString('es-MX',{day:'numeric',month:'short'});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+function demo(){const t=Date.now(),d=n=>iso(t+n*DAY);
+  const w=(a,b)=>[{f:d(-90),kg:a},{f:d(-45),kg:Math.round((a+b)/2)},{f:d(-3),kg:b}];
+  return{online:true,pending:0,last:t,animals:[
+    {id:1,arete:'0457',nombre:'La Pinta',org:'nacido',nac:d(-1500),ing:d(-1500),especie:'Bovino',sexo:'Hembra',lote:'Las Palmas',pesos:w(420,486),vac:[{f:d(-20),n:'Triple bovina',ret:0,prox:d(160)}],partos:[{f:d(-40),cria:'Hembra'}],orde:[0,1,2,3,4,5].map(i=>({f:d(-i),litros:14+i%3}))},
+    {id:2,arete:'0312',nombre:'Canela',org:'fuera',ing:d(-900),nac:d(-2360),nacEst:true,especie:'Bovino',sexo:'Hembra',lote:'Las Palmas',pesos:w(398,452),vac:[{f:d(-5),n:'Ivermectina',ret:28,prox:d(25)}],partos:[{f:d(-400),cria:'Macho'}],servicios:[{f:d(-250),tipo:'Monta'}],orde:[0,1,2,3].map(i=>({f:d(-i),litros:11+i%2}))},
+    {id:3,arete:'0518',nombre:'Moro',org:'nacido',nac:d(-1100),ing:d(-1100),especie:'Bovino',sexo:'Macho',lote:'El Potrero',repro:true,pesos:w(310,395),vac:[{f:d(-60),n:'Derriengue',ret:0,prox:d(5)}]},
+    {id:4,arete:'0521',nombre:'Lucero',org:'nacido',nac:d(-420),ing:d(-420),especie:'Bovino',sexo:'Macho',lote:'El Potrero',pesos:w(295,372),vac:[]},
+    {id:5,arete:'0090',nombre:'Trueno',org:'fuera',ing:d(-800),nac:d(-2900),especie:'Caballo',sexo:'Macho',lote:'Caballerizas',pesos:[],vac:[{f:d(-180),n:'Influenza equina',ret:0,prox:d(-4)}]},
+    {id:6,arete:'0603',nombre:'Estrella',especie:'Bovino',sexo:'Hembra',lote:'Las Palmas',org:'fuera',ing:d(-120),nac:d(-1032),nacEst:true,pesos:w(380,430),vac:[{f:d(-110),n:'Desparasitante',ret:0,prox:d(70)}],servicios:[{f:d(-100),tipo:'Inseminación'}]},
+    {id:7,arete:'0644',nombre:'Chula',especie:'Bovino',sexo:'Hembra',lote:'Las Palmas',org:'nacido',nac:d(-700),ing:d(-700),pesos:w(250,330),vac:[]},
+    {id:8,arete:'0702',nombre:'Bravo',especie:'Bovino',sexo:'Macho',lote:'El Potrero',repro:true,org:'fuera',ing:d(-200),nac:d(-1100),pesos:w(520,585),vac:[{f:d(-15),n:'Derriengue',ret:0,prox:d(165)}]},
+    {id:9,arete:'0715',nombre:'Tordo',especie:'Bovino',sexo:'Macho',lote:'El Potrero',org:'nacido',nac:d(-300),ing:d(-300),pesos:w(140,215),vac:[]},
+    {id:10,arete:'0388',nombre:'Rosita',especie:'Bovino',sexo:'Hembra',lote:'Las Palmas',org:'fuera',ing:d(-60),nac:d(-1520),nacEst:true,pesos:[{f:d(-40),kg:455},{f:d(-5),kg:470}],vac:[{f:d(-10),n:'Ivermectina',ret:28,prox:d(20)}],partos:[{f:d(-30),cria:'Hembra'}],orde:[0,1,2,3,4,5].map(i=>({f:d(-i),litros:9+i%2}))},
+    {id:11,arete:'0120',nombre:'Nube',especie:'Borrego',sexo:'Hembra',lote:'Corral chico',org:'nacido',nac:d(-500),ing:d(-500),pesos:w(38,52),vac:[],servicios:[{f:d(-60),tipo:'Monta'}]}]};}
+const fix=s=>{s.animals.forEach(a=>{a.partos=a.partos||[];a.orde=a.orde||[];a.servicios=a.servicios||[];a.nac=a.nac||'';a.ing=a.ing||''});return s};
+function load(){let s=null;try{const r=localStorage.getItem(KEY);if(r)s=JSON.parse(r)}catch(e){}return fix(s||demo())}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+let S=load(),ui={tab:'animales',sel:null,q:'',sheet:0},T;
+
+const A=id=>S.animals.find(a=>a.id===id);
+const lastKg=a=>a.pesos.length?a.pesos[a.pesos.length-1].kg:null;
+const gdp=a=>{if(a.pesos.length<2)return null;const f=a.pesos[0],l=a.pesos[a.pesos.length-1];return(l.kg-f.kg)/Math.max(1,dd(f.f,l.f))};
+function toast(m){const e=$('toast');e.textContent=m;e.classList.add('show');clearTimeout(T);T=setTimeout(()=>e.classList.remove('show'),2400)}
+function touch(){if(S.online)S.last=Date.now();else S.pending++;save();toast(S.online?'Guardado y enviado':'Guardado en el teléfono, falta enviar')}
+function go(t){ui.tab=t;ui.sel=null;render();scrollTo(0,0)}
+function openA(id){ui.tab='animales';ui.sel=id;render();scrollTo(0,0)}
+
+function row(a){const k=lastKg(a);return`<button class="row" onclick="openA(${a.id})"><span class="ar">${esc(a.arete)}</span><span class="nm"><b>${esc(a.nombre||'Sin nombre')}</b><small>${esc(a.especie)}, ${esc(a.lote)}</small></span><span class="kg">${k?k+' kg':'Sin peso'}</span></button>`}
+function renderList(){const q=ui.q.trim().toLowerCase();
+  const L=S.animals.filter(a=>!q||(a.arete+' '+a.nombre+' '+a.lote).toLowerCase().includes(q));
+  $('list').innerHTML=L.length?L.map(row).join(''):`<p class="empty">Nada con “${esc(ui.q)}”. Revisa el arete o agrega el animal.</p>`}
+
+const vAnimales=()=>`<div class="bar"><input id="q" class="in" type="search" placeholder="Buscar por arete, nombre o lote" value="${esc(ui.q)}" oninput="ui.q=this.value;renderList()"><button class="btn sm" onclick="ui.sheet=1;render()">Agregar</button></div><div id="list"></div>`;
+
+function hist(a){const E=[];a.servicios.forEach(s=>E.push([s.f,`Servicio: ${esc(s.tipo).toLowerCase()}`]));a.partos.forEach(p=>E.push([p.f,`Parto: cría ${esc(p.cria).toLowerCase()}`]));a.orde.forEach(o=>E.push([o.f,`Ordeña: ${o.litros} L`]));a.pesos.forEach(p=>E.push([p.f,`Peso: ${p.kg} kg`]));
+  a.vac.forEach(v=>E.push([v.f,`${esc(v.n)}${v.ret?', retiro '+v.ret+' días':''}`]));
+  E.sort((x,y)=>x[0]<y[0]?1:-1);
+  return E.length?`<ul class="hist">${E.map(e=>`<li><span>${e[1]}</span><span class="mute">${fmt(e[0])}</span></li>`).join('')}</ul>`:'<p class="empty">Sin registros todavía. Anota el primer peso.</p>'}
+
+function vDetalle(a){const g=gdp(a),k=lastKg(a);
+  return`<button class="back" onclick="ui.sel=null;render()">Volver a animales</button>
+<div class="ficha"><span class="ar big">${esc(a.arete)}</span><div><h2>${esc(a.nombre||'Sin nombre')}</h2><p class="mute">${esc(a.especie)}, ${esc(a.sexo)}, lote ${esc(a.lote)}<br>${cat(a)}${a.nac?'<br>Edad: '+edadTxt(a)+', entró al lote el '+fmtY(a.ing||a.nac):''}</p></div></div>
+<div class="stats"><div><b>${k??'—'}</b><small>kg actual</small></div><div><b>${g==null?'—':g.toFixed(2)}</b><small>kg ganados por día</small></div></div>
+<section class="card"><h3>Registrar peso</h3><div class="inl"><input id="kg" class="in" type="number" inputmode="decimal" placeholder="Kilos"><button class="btn" onclick="addPeso(${a.id})">Guardar peso</button></div></section>
+<section class="card"><h3>Aplicar vacuna o medicina</h3><select id="vn" class="in">${VAC.map(v=>`<option>${v}</option>`).join('')}</select>
+<div class="inl"><label>Retiro (días)<input id="vr" class="in" type="number" inputmode="numeric" value="0" min="0"></label><label>Repetir en (días)<input id="vp" class="in" type="number" inputmode="numeric" value="0" min="0"></label></div>
+<button class="btn" onclick="addVac(${a.id})">Guardar aplicación</button></section>
+${a.sexo==='Hembra'?`${GEST[a.especie]?`<section class="card"><h3>Registrar servicio</h3>${pp(a)?`<p class="note">Parto probable: <b style="color:var(--ink)">${fmt(pp(a))}</b></p>`:''}<div class="inl"><select id="sv" class="in"><option>Monta</option><option>Inseminación</option></select><button class="btn" onclick="addServ(${a.id})">Guardar servicio</button></div></section>`:''}<section class="card"><h3>Registrar parto</h3><div class="inl"><select id="pc" class="in"><option>Hembra</option><option>Macho</option><option>Nació muerta</option></select><button class="btn" onclick="addParto(${a.id})">Guardar parto</button></div></section>
+<section class="card"><h3>Registrar ordeña</h3><div class="inl"><input id="lt" class="in" type="number" inputmode="decimal" placeholder="Litros"><button class="btn" onclick="addOrde(${a.id})">Guardar ordeña</button></div></section>`:''}
+${a.sexo==='Macho'?`<button class="ghost" style="width:100%;margin-bottom:12px" onclick="toggleRepro(${a.id})">${a.repro?'Quitar como reproductor':'Marcar como reproductor'}</button>`:''}${DL?`<button class="btn" style="width:100%;margin-bottom:12px" onclick="exportAnimal(${a.id})">Exportar este animal a Excel</button>`:''}<section class="card"><h3>Historia</h3>${hist(a)}</section>`}
+
+function vSalud(){const ev=[],ret=[],t=today(),lim=add(t,30);
+  S.animals.forEach(a=>a.vac.forEach(v=>{
+    if(v.prox&&!a.vac.some(x=>x.n===v.n&&x.f>v.f))ev.push({a,v});
+    if(v.ret>0){const u=add(v.f,v.ret);if(u>=t)ret.push({a,v,u})}}));
+  const soon=ev.filter(e=>e.v.prox<=lim).sort((x,y)=>x.v.prox<y.v.prox?-1:1);
+  const s1=soon.map(({a,v})=>{const late=v.prox<t;return`<button class="row" onclick="openA(${a.id})"><span class="ar">${esc(a.arete)}</span><span class="nm"><b>${esc(v.n)}</b><small>${esc(a.nombre||'Sin nombre')}</small></span><span class="${late?'late':'kg'}">${late?'Atrasada '+dd(v.prox,t)+' d':v.prox===t?'Hoy':fmt(v.prox)}</span></button>`}).join('');
+  const s2=ret.sort((x,y)=>x.u<y.u?-1:1).map(({a,v,u})=>`<div class="row"><span class="ar">${esc(a.arete)}</span><span class="nm"><b>${esc(a.nombre||'Sin nombre')}</b><small>${esc(v.n)}: no vender ni ordeñar hasta el ${fmt(u)}</small></span></div>`).join('');
+  return`<h2 class="sec">Toca en los próximos 30 días</h2>${s1||'<p class="empty">Nada pendiente. Al aplicar una vacuna puedes programar la siguiente dosis.</p>'}
+<h2 class="sec">Retiros activos</h2>${s2||'<p class="empty">Ningún animal en retiro hoy.</p>'}${vPP()}`}
+
+function vPesos(){const L=S.animals.map(a=>({a,g:gdp(a)})).filter(x=>x.g!=null).sort((x,y)=>y.g-x.g),mx=Math.max(.01,...L.map(x=>x.g));
+  const G={};S.animals.forEach(a=>{const k=lastKg(a);if(k){(G[a.lote]=G[a.lote]||[]).push(k)}});
+  const lotes=Object.entries(G).map(([n,v])=>`<div class="row"><span class="nm"><b>${esc(n)}</b><small>${v.length} animal${v.length>1?'es':''} con peso</small></span><span class="kg">${Math.round(v.reduce((s,x)=>s+x,0)/v.length)} kg</span></div>`).join('');
+  return`<h2 class="sec">Ganancia diaria por animal</h2>${L.length?L.map(({a,g})=>`<div class="row"><span class="ar">${esc(a.arete)}</span><span class="nm"><b>${esc(a.nombre||'Sin nombre')}</b><span class="bar2"><i style="width:${Math.max(4,Math.round(g/mx*100))}%"></i></span></span><span class="kg">${g.toFixed(2)} kg</span></div>`).join(''):'<p class="empty">Registra al menos dos pesos de un animal para ver su ganancia.</p>'}
+<h2 class="sec">Peso promedio por lote</h2>${lotes||'<p class="empty">Aún no hay pesos.</p>'}${vOrde()}${vPartos()}`}
+
+function vPP(){const lim=add(today(),60),L=S.animals.map(a=>({a,d:pp(a)})).filter(x=>x.d&&x.d<=lim).sort((x,y)=>x.d<y.d?-1:1);
+  return`<h2 class="sec">Partos probables en 60 días</h2>${L.length?L.map(({a,d})=>`<button class="row" onclick="openA(${a.id})"><span class="ar">${esc(a.arete)}</span><span class="nm"><b>${esc(a.nombre||'Sin nombre')}</b><small>${esc(a.especie)}, lote ${esc(a.lote)}</small></span><span class="${d<today()?'late':'kg'}">${fmt(d)}</span></button>`).join(''):'<p class="empty">Ninguno. Registra el servicio en la ficha de la hembra.</p>'}`}
+function vOrde(){const lim=add(today(),-6),L=S.animals.map(a=>{const r=a.orde.filter(o=>o.f>=lim);return{a,t:r.reduce((s,o)=>s+o.litros,0),n:new Set(r.map(o=>o.f)).size}}).filter(x=>x.n).sort((x,y)=>y.t/y.n-x.t/x.n);
+  return`<h2 class="sec">Ordeña, promedio por día (7 días)</h2>${L.length?L.map(({a,t,n})=>`<div class="row"><span class="ar">${esc(a.arete)}</span><span class="nm"><b>${esc(a.nombre||'Sin nombre')}</b><small>${n} día${n>1?'s':''} con registro</small></span><span class="kg">${(t/n).toFixed(1)} L</span></div>`).join(''):'<p class="empty">Registra la ordeña en la ficha de una hembra.</p>'}`}
+function vPartos(){const lim=add(today(),-90),P=[];S.animals.forEach(a=>a.partos.forEach(p=>{if(p.f>=lim)P.push({a,p})}));P.sort((x,y)=>x.p.f<y.p.f?1:-1);
+  return`<h2 class="sec">Partos de los últimos 90 días</h2>${P.length?P.map(({a,p})=>`<button class="row" onclick="openA(${a.id})"><span class="ar">${esc(a.arete)}</span><span class="nm"><b>${esc(a.nombre||'Sin nombre')}</b><small>Cría ${esc(p.cria).toLowerCase()}</small></span><span class="kg">${fmt(p.f)}</span></button>`).join(''):'<p class="empty">Sin partos recientes.</p>'}`}
+function vSync(){const f=new Date(S.last).toLocaleString('es-MX',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  return`<section class="card"><h3>Estado de la conexión</h3><div class="big2">${S.online?'Con señal':'Sin señal'}</div>
+<p class="mute" style="margin:0">Cambios por enviar: <b style="color:var(--ink)">${S.pending}</b><br>Última sincronización: ${f}</p>
+<button class="btn" onclick="toggleNet()">${S.online?'Simular que se va la señal':'Simular que vuelve la señal'}</button>
+<p class="note">Prueba: apaga la señal, registra un peso o una vacuna y mira cómo suben los cambios por enviar. Al volver la señal se vacían.</p></section>
+${DL?`<section class="card"><h3>Tus datos</h3><p class="note">Una fila por animal, con su último registro.</p><button class="btn" onclick="exportHato()">Exportar hato a Excel</button></section>`:''}<section class="card"><h3>Sobre este prototipo</h3><p class="note">La sincronización es una simulación: los datos viven solo en este navegador. En una app real se enviarían a un servidor con cuentas de usuario y respaldo.</p>
+<button class="ghost" onclick="resetDemo()">Volver a los datos de ejemplo</button></section>`}
+
+const vSheet=()=>`<div class="ov" onclick="if(event.target===this){ui.sheet=0;render()}"><div class="sheet"><h2>Agregar animal</h2>
+<input id="n_arete" class="in" inputmode="numeric" placeholder="Arete, por ejemplo 0457" maxlength="12">
+<input id="n_nombre" class="in" placeholder="Nombre (opcional)">
+<div class="inl"><select id="n_esp" class="in">${ESP.map(e=>`<option>${e}</option>`).join('')}</select><select id="n_sexo" class="in"><option>Hembra</option><option>Macho</option></select></div>
+<input id="n_lote" class="in" placeholder="Lote o potrero">
+<label>¿Cómo llegó al rancho?<select id="n_org" class="in" onchange="$('n_ingw').style.display=this.value==='fuera'?'grid':'none'"><option value="nacido">Nació en el rancho</option><option value="fuera">Llegó de fuera (compra)</option></select></label>
+<label id="n_ingw" style="display:none">Fecha en que entró al lote<input id="n_ing" class="in" type="date" max="${today()}"></label>
+<label>Fecha de nacimiento<input id="n_nac" class="in" type="date" max="${today()}"></label>
+<p class="note" style="margin:0">Si no la sabes, escribe la edad aproximada con la que llegó o tiene hoy:</p>
+<div class="inl"><label>Años<input id="n_ay" class="in" type="number" inputmode="numeric" min="0" max="40" placeholder="0"></label><label>Meses<input id="n_am" class="in" type="number" inputmode="numeric" min="0" max="11" placeholder="0"></label></div>
+<button class="btn" onclick="addAnimal()">Guardar animal</button><button class="ghost" onclick="ui.sheet=0;render()">Cancelar</button></div></div>`;
+
+function addPeso(id){const kg=parseFloat($('kg').value);if(!(kg>0&&kg<2000))return toast('Escribe un peso entre 1 y 2000 kg');A(id).pesos.push({f:today(),kg});touch();render()}
+function addVac(id){const r=Math.max(0,parseInt($('vr').value)||0),p=Math.max(0,parseInt($('vp').value)||0);A(id).vac.push({f:today(),n:$('vn').value,ret:r,prox:p?add(today(),p):''});touch();render()}
+const GEST={Bovino:283,Caballo:340,Borrego:150,Chivo:150,Cerdo:114};
+const pp=a=>{const s=a.servicios[a.servicios.length-1];if(!s||!GEST[a.especie]||a.partos.some(p=>p.f>s.f))return null;return add(s.f,GEST[a.especie])};
+const fmtY=f=>new Date(f+'T12:00:00').toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'});
+const edadTxt=a=>{if(!a.nac)return'';const n=new Date(a.nac+'T12:00:00'),h=new Date();let m=(h.getFullYear()-n.getFullYear())*12+h.getMonth()-n.getMonth();if(h.getDate()<n.getDate())m--;m=Math.max(0,m);const y=Math.floor(m/12),r=m%12,p=[];
+  if(m<1)p.push(Math.max(0,Math.round((h-n)/DAY))+' días');else{if(y)p.push(y+(y>1?' años':' año'));if(r)p.push(r+(r>1?' meses':' mes'))}
+  return(a.nacEst?'aprox. ':'')+p.join(' ')};
+const cat=a=>{if(a.sexo==='Macho'&&a.repro)return'Macho reproductor';if(pp(a))return'Animales gestantes';const lim=add(today(),-90);if(a.partos.some(p=>p.f>=lim))return'Paridas';if(a.especie==='Caballo'||a.especie==='Ave')return'Sin clasificar';return'Animales de engorda'};
+const farm=a=>{const lim=add(today(),-30);return[...new Set(a.vac.filter(v=>v.f>=lim).map(v=>v.n))].join('; ')};
+function toggleRepro(id){const a=A(id);a.repro=!a.repro;touch();render()}
+function addServ(id){A(id).servicios.push({f:today(),tipo:$('sv').value});touch();render()}
+function prodRows(a){const c=cat(a),R=[['Arete',a.arete],['Nombre',a.nombre],['Especie',a.especie],['Sexo',a.sexo],['Lote',a.lote],['Categoría',c],['Edad',edadTxt(a)],['Fecha de nacimiento',a.nac||''],['Ingreso al lote',a.ing||''],[]],by=(x,y)=>x.f<y.f?-1:1,P=[...a.pesos].sort(by);
+  const pesoT=()=>{R.push(['Fecha','Peso (kg)','Días desde el pesaje anterior','Ganancia (kg)','Ganancia diaria (kg/día)']);P.forEach((p,i)=>{const q=P[i-1],d=q?Math.max(1,dd(q.f,p.f)):'',g=q?p.kg-q.kg:'';R.push([p.f,p.kg,d,g,q?+(g/d).toFixed(2):''])});if(!P.length)R.push(['Sin pesos registrados'])};
+  if(c==='Animales gestantes'){const s=a.servicios[a.servicios.length-1];R.push(['Último servicio',s.f,s.tipo],['Parto probable',pp(a)],['Días de gestación',dd(s.f,today())],[]);pesoT()}
+  else if(c==='Paridas'){const O=[...a.orde].sort(by),n=new Set(O.map(o=>o.f)).size;R.push(['Fecha de parto','Cría']);[...a.partos].sort(by).forEach(p=>R.push([p.f,p.cria]));R.push([],['Fecha de ordeña','Litros']);O.forEach(o=>R.push([o.f,o.litros]));R.push(n?['Promedio por día (L)',+(O.reduce((s,o)=>s+o.litros,0)/n).toFixed(1)]:['Sin ordeñas registradas'],[]);pesoT()}
+  else{pesoT();if(P.length>1)R.push([],['Peso inicial (kg)',P[0].kg],['Peso actual (kg)',P[P.length-1].kg],['Ganancia diaria promedio (kg/día)',+gdp(a).toFixed(2)])}
+  return R}
+function manejoRows(a){const E=[];
+  a.pesos.forEach(p=>E.push([p.f,'Peso','',p.kg,'kg','','']));
+  a.vac.forEach(v=>E.push([v.f,'Vacuna o medicina',v.n,v.ret||'',v.ret?'días de retiro':'',v.ret?add(v.f,v.ret):'',v.prox||'']));
+  a.servicios.forEach(s=>E.push([s.f,'Servicio',s.tipo,'','','','']));
+  a.partos.forEach(p=>E.push([p.f,'Parto','Cría '+p.cria.toLowerCase(),'','','','']));
+  a.orde.forEach(o=>E.push([o.f,'Ordeña','',o.litros,'L','','']));
+  E.sort((x,y)=>x[0]<y[0]?1:-1);
+  return[['Fecha','Evento','Detalle','Valor','Unidad','Retiro hasta','Próxima dosis'],...E]}
+function exportAnimal(id){const a=A(id);if(!DL||!window.XLSX)return toast('No se pudo preparar el Excel');
+  const wb=XLSX.utils.book_new(),s1=XLSX.utils.aoa_to_sheet(prodRows(a)),s2=XLSX.utils.aoa_to_sheet(manejoRows(a));
+  s1['!cols']=[{wch:30},{wch:18},{wch:28},{wch:16},{wch:26}];s2['!cols']=[{wch:12},{wch:20},{wch:22},{wch:10},{wch:16},{wch:14},{wch:16}];
+  XLSX.utils.book_append_sheet(wb,s1,'Producción');XLSX.utils.book_append_sheet(wb,s2,'Historial de manejo');
+  const out=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+  DL.save({filename:'animal-'+a.arete.replace(/[^\w-]/g,'')+'-'+today()+'.xlsx',data:out}).then(()=>toast('Archivo guardado')).catch(e=>{if(!e||e.code!=='declined')toast('No se pudo guardar el archivo')})}
+function exportHato(){if(!DL||!window.XLSX)return toast('No se pudo preparar el Excel');
+  const H=['Arete','Nombre','Especie','Sexo','Lote','Fecha de ingreso al lote','Fecha de nacimiento','Edad','Categoría','Estado','Fecha','Detalle','Último peso (kg)','Peso actual (kg)','Producción de leche (L)','Fármaco suministrado'],R=[H],t=today(),by=(x,y)=>x.f<y.f?-1:1;
+  S.animals.forEach(a=>{const P=[...a.pesos].sort(by),cur=P.length?P[P.length-1].kg:'',prev=P.length>1?P[P.length-2].kg:'',E=[];
+    a.pesos.forEach(p=>E.push(['Registrado',p.f,'Peso']));
+    a.vac.forEach(v=>E.push([v.ret&&add(v.f,v.ret)>=t?'En retiro':'Aplicada',v.f,'Vacuna: '+v.n+(v.ret?' (retiro '+v.ret+' días)':'')]));
+    a.servicios.forEach(s=>E.push(['Registrado',s.f,'Servicio: '+s.tipo]));
+    a.partos.forEach(p=>E.push(['Registrado',p.f,'Parto: cría '+p.cria.toLowerCase()]));
+    a.orde.forEach(o=>E.push(['Registrado',o.f,'Ordeña']));
+    const l=E.reduce((m,r)=>!m||r[1]>=m[1]?r:m,null)||['','',''];
+    const O=[...a.orde].sort(by),ld=O.length?O[O.length-1].f:null,lt=ld?O.filter(o=>o.f===ld).reduce((s,o)=>s+o.litros,0):'';
+    R.push([a.arete,a.nombre,a.especie,a.sexo,a.lote,a.ing||'',a.nac||'',edadTxt(a),cat(a),...l,prev,cur,a.sexo==='Hembra'?lt:'',farm(a)])});
+  const ws=XLSX.utils.aoa_to_sheet(R),wb=XLSX.utils.book_new();
+  ws['!cols']=[10,16,12,10,16,20,20,16,22,12,12,34,16,16,22,24].map(w=>({wch:w}));
+  XLSX.utils.book_append_sheet(wb,ws,'Hato');
+  DL.save({filename:'hato-'+t+'.xlsx',data:XLSX.write(wb,{bookType:'xlsx',type:'array'})}).then(()=>toast('Archivo guardado')).catch(e=>{if(!e||e.code!=='declined')toast('No se pudo guardar el archivo')})}
+function addParto(id){A(id).partos.push({f:today(),cria:$('pc').value});touch();render()}
+function addOrde(id){const l=parseFloat($('lt').value);if(!(l>0&&l<100))return toast('Escribe los litros, entre 1 y 100');A(id).orde.push({f:today(),litros:l});touch();render()}
+function addAnimal(){const ar=$('n_arete').value.trim();if(!ar)return toast('Escribe el arete');if(S.animals.some(a=>a.arete===ar))return toast('Ese arete ya está registrado');
+  const fu=$('n_org').value==='fuera',ing=$('n_ing').value,nb=$('n_nac').value,ay=parseInt($('n_ay').value)||0,am=parseInt($('n_am').value)||0;
+  if(fu&&!ing)return toast('Escribe la fecha en que entró al lote');
+  if(!nb&&!ay&&!am)return toast('Escribe la fecha de nacimiento o la edad aproximada');
+  if(nb&&nb>(fu?ing:today()))return toast(fu?'El nacimiento no puede ser después del ingreso':'La fecha de nacimiento no puede ser futura');
+  let nac=nb;if(!nb){const x=new Date((fu?ing:today())+'T12:00:00');x.setMonth(x.getMonth()-(ay*12+am));nac=iso(x)}
+  S.animals.unshift({id:Date.now(),arete:ar,nombre:$('n_nombre').value.trim(),especie:$('n_esp').value,sexo:$('n_sexo').value,lote:$('n_lote').value.trim()||'Sin lote',org:fu?'fuera':'nacido',nac,nacEst:!nb,ing:fu?ing:nac,pesos:[],vac:[],partos:[],orde:[],servicios:[]});
+  ui.sheet=0;ui.sel=null;touch();render()}
+function toggleNet(){S.online=!S.online;if(S.online){const n=S.pending;S.pending=0;S.last=Date.now();toast(n?`Volvió la señal: se enviaron ${n} cambios`:'Con señal')}else toast('Sin señal: todo se guarda en el teléfono');save();render()}
+function resetDemo(){S=fix(demo());ui={tab:'animales',sel:null,q:'',sheet:0};save();render();toast('Datos de ejemplo restaurados')}
+
+function render(){let b='';
+  if(ui.tab==='animales')b=ui.sel!=null&&A(ui.sel)?vDetalle(A(ui.sel)):(ui.sel=null,vAnimales());
+  else if(ui.tab==='salud')b=vSalud();else if(ui.tab==='pesos')b=vPesos();else b=vSync();
+  $('app').innerHTML=`<div class="top"><h1>Mi Hato</h1><button class="pill ${S.online?'':'off'}" onclick="toggleNet()" aria-label="Simular conexión">${S.online?'Con señal':'Sin señal'}</button></div>${S.online?'':'<p class="banner">Sin señal. Lo que anotes se guarda en el teléfono.</p>'}${b}${ui.sheet?vSheet():''}`;
+  document.querySelectorAll('nav button').forEach(x=>{x.classList.toggle('on',x.dataset.t===ui.tab);if(x.dataset.t==='sync')x.textContent='Sincronía'+(S.pending?' ('+S.pending+')':'')});
+  if(ui.tab==='animales'&&ui.sel==null)renderList()}
+let DL={save:({filename,data})=>new Promise(res=>{const b=data instanceof Blob?data:new Blob([data],{type:filename.endsWith('.xlsx')?'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':'text/csv;charset=utf-8'}),u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=filename;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);res({status:'saved'})})};
+render();
+if(window.claude&&claude.use)claude.use('downloads').then(d=>{if(d){DL=d;if(ui.tab==='sync'||ui.sel!=null)render()}}).catch(()=>{});
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
